@@ -3,16 +3,25 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public int speed = 3;
-    Camera camera;
+    float WidthInWorldUnits;
     void Start()
     {
-        camera = FindFirstObjectByType<Camera>();
+        WidthInWorldUnits = Camera.main.aspect * Camera.main.orthographicSize + (gameObject.transform.localScale.x * 0.5f);
+
     }
 
     void Update()
     {
-        Vector3 vector = Vector3.right * Input.GetAxis("Horizontal") * speed * Time.fixedDeltaTime;
+        Vector2 vector = Vector2.right * Input.GetAxis("Horizontal") * speed * Time.fixedDeltaTime;
         gameObject.transform.Translate(vector);
 
+        if(gameObject.transform.position.x < -WidthInWorldUnits)
+        {
+            gameObject.transform.position = new Vector2( WidthInWorldUnits , gameObject.transform.position.y);
+        }
+        if(gameObject.transform.position.x > WidthInWorldUnits)
+        {
+            gameObject.transform.position = new Vector2( -WidthInWorldUnits , gameObject.transform.position.y);
+        }
     }
 }
