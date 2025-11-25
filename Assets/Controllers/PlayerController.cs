@@ -4,15 +4,28 @@ public class PlayerController : MonoBehaviour
 {
     public int speed = 3;
     float WidthInWorldUnits;
+    Collider fallingObjectCollider;
+    bool isGameOver = false;
+
+    public void setGameOver()
+    {
+        isGameOver = true;
+    }
+
     // float HeightInWorldUnits;
     void Start()
     {
         WidthInWorldUnits = Camera.main.aspect * Camera.main.orthographicSize + (gameObject.transform.localScale.x * 0.5f);
         // HeightInWorldUnits = Camera.main.orthographicSize - (gameObject.transform.localScale.y * 0.5f);
+
     }
 
     void Update()
     {
+        if(isGameOver)
+        {
+            return;
+        }
         Vector2 vector = (Vector2.right * Input.GetAxis("Horizontal") * speed * Time.fixedDeltaTime ) ;
         // Vector2 forYAxis = (Vector2.up * Input.GetAxis("Vertical") * speed * Time.fixedDeltaTime);
         gameObject.transform.Translate(vector);
