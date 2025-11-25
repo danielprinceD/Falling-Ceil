@@ -6,7 +6,10 @@ public class GameGUIController : MonoBehaviour
     float WidthInWorldUnits;
     float HeightInWorldUnits;
 
-    public float SpawnTimeDelay = 0;
+    public float MinimumFallingObjectSize = 1f;
+    public float MaximumFallingObjectSize = 5f;
+
+    public float SpawnTimeDelay = 1;
     float nextSpawnTime;
 
     bool isGameOver = false;
@@ -25,12 +28,8 @@ public class GameGUIController : MonoBehaviour
     void Start()
     {
         nextSpawnTime = SpawnTimeDelay;
-        float WorldWidth = Camera.main.aspect * Camera.main.orthographicSize;
-        float WorldHeight = Camera.main.orthographicSize;
-        WidthInWorldUnits = WorldWidth - (FallingObject.transform.localScale.x * 0.5f);
-        HeightInWorldUnits = WorldHeight + (FallingObject.transform.localScale.y * 0.5f);
-        gameObject.transform.position = new Vector2(0 , 0);
-        gameObject.transform.localScale = new Vector2( WorldWidth * 2 , WorldHeight * 2 );
+        WidthInWorldUnits = Camera.main.aspect * Camera.main.orthographicSize;
+        HeightInWorldUnits = Camera.main.orthographicSize;
     }
 
     void Update()
@@ -42,9 +41,12 @@ public class GameGUIController : MonoBehaviour
 
         if( Time.time > nextSpawnTime)
         {
-            Vector2 position = new Vector2(Random.Range(-WidthInWorldUnits , WidthInWorldUnits) , HeightInWorldUnits );
-            Instantiate(FallingObject , position , Quaternion.identity );
+            float spawnSize = Random.Range(MinimumFallingObjectSize , MaximumFallingObjectSize);
+            Vector2 position = new Vector2(Random.Range(-WidthInWorldUnits + (spawnSize * 0.5f) , WidthInWorldUnits - (spawnSize * 0.5f) ) , HeightInWorldUnits + (spawnSize * 0.5f) );
+            GameObject newFallingObj = Instantiate(FallingObject , position , Quaternion.identity );
+            newFallingObj.transform.localScale = new Vector2(spawnSize , spawnSize);
             nextSpawnTime += SpawnTimeDelay;
+            print(Mathf.Clamp01(Time.time / 60));
         }
 
     }
