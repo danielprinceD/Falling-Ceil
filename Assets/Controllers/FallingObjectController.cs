@@ -22,14 +22,21 @@ public class FallingObjectController : MonoBehaviour
         {
             return;
         }
+        float lerpped = Difficulty.getLerpValue( 7 , 30 , 1 , 60);
         speed = Mathf.Lerp( 7 , 30 , Difficulty.getDifficultyPercentage());
+
         Vector2 position = Vector2.down * speed * Time.deltaTime;
         gameObject.transform.Translate(position);
+        
+        if(gameObject != FindFirstObjectByType<GameGUIController>().FallingObject && -(Camera.main.orthographicSize * 2) + gameObject.transform.localScale.y > gameObject.transform.position.y)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void OnTriggerEnter(Collider FallingObjectCollider) {
-        GameGUIController gameGUIController = FindFirstObjectByType<GameGUIController>();
-        gameGUIController.setGameOver();
+        // GameGUIController gameGUIController = FindFirstObjectByType<GameGUIController>();
+        // gameGUIController.setGameOver();
         PlayerController playerContoller = FindAnyObjectByType<PlayerController>();
         playerContoller.setGameOver();
         print("Game Over");
