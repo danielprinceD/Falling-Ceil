@@ -46,7 +46,6 @@ public class GameGUIController : MonoBehaviour
             GameObject newFallingObj = Instantiate(FallingObject , position , Quaternion.identity );
             newFallingObj.transform.localScale = new Vector2(spawnSize , spawnSize);
             nextSpawnTime += SpawnTimeDelay;
-            print(Mathf.Clamp01(Time.time / 60));
         }
 
     }

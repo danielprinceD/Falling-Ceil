@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets/Controllers/FallingObjectController.cs" />
+    <Compile Include="Assets/Utils/Difficulty.cs" />
     <Compile Include="Assets/Controllers/PlayerController.cs" />
     <Compile Include="Assets/Controllers/GameGUIController.cs" />
   </ItemGroup>

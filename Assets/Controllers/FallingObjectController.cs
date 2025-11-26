@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -21,6 +22,7 @@ public class FallingObjectController : MonoBehaviour
         {
             return;
         }
+        speed = Mathf.Lerp( 7 , 30 , Difficulty.getDifficultyPercentage());
         Vector2 position = Vector2.down * speed * Time.deltaTime;
         gameObject.transform.Translate(position);
     }
