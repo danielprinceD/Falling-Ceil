@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    public int speed = 3;
+    public int speed = 6;
     float WidthInWorldUnits;
     Collider fallingObjectCollider;
     public event Action OnTriggerGameOver;
