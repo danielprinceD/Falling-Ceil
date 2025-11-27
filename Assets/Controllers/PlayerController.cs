@@ -1,16 +1,14 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
     public int speed = 3;
     float WidthInWorldUnits;
     Collider fallingObjectCollider;
-    bool isGameOver = false;
-
-    public void setGameOver()
-    {
-        isGameOver = true;
-    }
+    public event Action OnTriggerGameOver;
 
     // float HeightInWorldUnits;
     void Start()
@@ -22,11 +20,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if(isGameOver)
-        {
-            Destroy(gameObject);
-            return;
-        }
         Vector2 vector = (Vector2.right * Input.GetAxis("Horizontal") * speed * Time.fixedDeltaTime ) ;
         // Vector2 forYAxis = (Vector2.up * Input.GetAxis("Vertical") * speed * Time.fixedDeltaTime);
         gameObject.transform.Translate(vector);
@@ -50,4 +43,18 @@ public class PlayerController : MonoBehaviour
         // }
 
     }
+
+    void OnTriggerEnter(Collider collider)
+    {
+        print(collider.gameObject.tag);
+        if(collider.gameObject.tag == "FallingObject")
+        {
+            if (OnTriggerGameOver != null)
+            {
+                OnTriggerGameOver();
+            }
+            Destroy(gameObject);
+        }
+    }
+
 }

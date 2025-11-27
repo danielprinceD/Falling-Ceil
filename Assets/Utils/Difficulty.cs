@@ -7,7 +7,7 @@ public static class Difficulty
 
     public static float getDifficultyPercentage()
     {
-        return Mathf.Clamp01(Time.time / reachDifficultyLevelIn);
+        return Mathf.Clamp01(Time.timeSinceLevelLoad / reachDifficultyLevelIn);
     }
 
     public static float getLerpValue(float fromLevel , float toLevel , float fromTime , float toTime )

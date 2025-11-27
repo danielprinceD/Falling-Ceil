@@ -48,8 +48,10 @@
     <Analyzer Include="/Applications/Unity/Hub/Editor/6000.2.12f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets/Controllers/GameOverManager.cs" />
     <Compile Include="Assets/Controllers/FallingObjectController.cs" />
     <Compile Include="Assets/Utils/Difficulty.cs" />
+    <Compile Include="Assets/Controllers/BackgroundAspectController.cs" />
     <Compile Include="Assets/Controllers/PlayerController.cs" />
     <Compile Include="Assets/Controllers/GameGUIController.cs" />
   </ItemGroup>

@@ -1,16 +1,12 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FallingObjectController : MonoBehaviour
 {
     public float speed = 5;
-    bool isGameOver = false;
 
-    public void setGameOver()
-    {
-        isGameOver = true;
-    }
     void Start()
     {
         
@@ -18,12 +14,8 @@ public class FallingObjectController : MonoBehaviour
 
     void Update()
     {
-        if (isGameOver)
-        {
-            return;
-        }
-        float lerpped = Difficulty.getLerpValue( 7 , 30 , 1 , 60);
-        speed = Mathf.Lerp( 7 , 30 , Difficulty.getDifficultyPercentage());
+        // float lerpped = Difficulty.getLerpValue( 7 , 30 , 1 , 60);
+        speed = Mathf.Lerp( 10 , 30 , Difficulty.getDifficultyPercentage());
 
         Vector2 position = Vector2.down * speed * Time.deltaTime;
         gameObject.transform.Translate(position);
@@ -32,13 +24,5 @@ public class FallingObjectController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    void OnTriggerEnter(Collider FallingObjectCollider) {
-        // GameGUIController gameGUIController = FindFirstObjectByType<GameGUIController>();
-        // gameGUIController.setGameOver();
-        PlayerController playerContoller = FindAnyObjectByType<PlayerController>();
-        playerContoller.setGameOver();
-        print("Game Over");
     }
 }
